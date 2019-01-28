@@ -18,6 +18,20 @@ export default new Vuex.Store({
   	  	imageUrl: '',
       },
     }),
+    service('boards', {
+      instanceDefaults: {
+        name: '',
+        background: '',
+      },
+    }),
+    service('lists', {
+      instanceDefaults: {
+        name: '',
+        order: '',
+        archived: false,
+        boardId: ''
+      },
+    }),
   	auth({ userService: 'users' }),
   ],
 });

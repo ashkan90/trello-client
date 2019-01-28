@@ -5,6 +5,24 @@ import store from './store';
 
 Vue.use(Router);
 
+
+isLoggedIn: (to, from, next) => {
+  store.dispatch('auth/authenticate').then(() => {
+    next('/boards');
+  }).catch(() => {
+    next('/login');
+  });
+},
+
+loadView: (view) => {
+  return import(
+    /* webpackMode: "lazy-once" */
+    /*  webpackChunkName: "view-[request]" */ 
+    `./views/${view}.vue`),
+}
+
+
+
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -13,35 +31,28 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      beforeEnter(to, from, next) {
-        store.dispatch('auth/authenticate').then(() => {
-          next('/boards');
-        }).catch(() => {
-          next('/login');
-        });
-      },
     },
     {
       path: '/signup',
       name: 'signup',
-      component: () => import(/* webpackChunkName: "view-[request]" */ './views/Signup.vue'),
+      component: loadView('Signup')
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "view-[request]" */ './views/Login.vue'),
+      component: loadView('Login')
     },
     {
       path: '/boards',
       name: 'boards',
-      component: () => import(/* webpackChunkName: "view-[request]" */ './views/Boards.vue'),
-      beforeEnter(to, from, next) {
-        store.dispatch('auth/authenticate').then(() => {
-          next();
-        }).catch(() => {
-          next('/login');
-        });
-      },
+      component: loadView('Boards'),
+      beforeEnter: isLoggedIn
+    },
+    {
+      path: '/boards/:id',
+      name: 'board',
+      component: loadView('Board'),
+      beforeEnter: isLoggedIn
     },
   ],
 });

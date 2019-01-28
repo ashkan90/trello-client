@@ -25,26 +25,26 @@
 </template>
 
 <script>
-import { mapStates, mapAction } from 'vuex';
+import { mapStates, mapAction } from 'vuex'
 
 export default {
   name: 'App',
   data() {
     return {
       //
-    };
+    }
   },
   computed: {
     ...mapStates('auth', { user: 'payload' }),
   },
   methods: {
-    ...mapAction('auth', { authLogout: 'logout'}),
-    logout(){
+    ...mapAction('auth', { authLogout: 'logout' })
+    logout() {
       this.authLogout()
-      .then(() => {
-        this.$router.push('/login')
-      })
+        .then(() => {
+          this.$router.push('/login');
+        })
     }
   }
-};
+}
 </script>
