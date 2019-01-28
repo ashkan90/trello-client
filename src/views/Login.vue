@@ -14,32 +14,13 @@
       	    label="Username"
       	  ></v-text-field>
       	  <v-text-field
-      	    v-model="user.displayName"
-      	    :rules="notEmptyRules"
-      	    required
-      	    label="Display name"
-      	  ></v-text-field>
-      	  <v-text-field
       	  	v-model="user.password"
       	  	:rules="notEmptyRules"
       	    label="Password"
       	    type="password"
       	    required
       	  ></v-text-field>
-      	  <v-text-field
-      	  	v-model="user.confirmPassword"
-      	  	:rules="confirmPasswordRule"
-      	    label="Confirm password"
-      	    type="password"
-      	    required
-      	  ></v-text-field>
-      	  <v-text-field
-      	  	v-model="user.imageUrl"
-      	  	:rules="notEmptyRules"
-      	    label="Image URL"
-      	    required
-      	  ></v-text-field>
-      	  <v-btn type="submit" :disabled="!valid">Sign Up</v-btn>
+      	  <v-btn type="submit" :disabled="!valid">Login</v-btn>
       	</v-form>
         <v-progress-circular 
         v-else
@@ -54,38 +35,33 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   data(vm) {
   	return {
   	  valid: false,
   	  user: {
   	  	username: '',
-  	  	confirmPassword: '',
   	  	password: '',
-  	  	displayName: '',
-  	  	imageUrl: '',
   	  },
   	  notEmptyRules: [val => !!val || 'Cannot be empty!'],
   	  confirmPasswordRule: [val => val === vm.user.password || 'Password doesnt match.'],
   	};
   },
   computed: {
-    ...mapState('users', 
-    {
-      loading: 'isCreatePending'
-    })
+    ...mapState('auth', { loading: 'isAuthenticatePending' }),
+    ...mapActions('auth', ['authenticate'])
   },
   methods: {
-  	signUp() {
+  	login() {
   	  if (this.valid) {
-  	  	const { User } = this.$FeathersVuex;
-  	  	const user = new User(this.user);
-  	  	user.save()
-        .then(user => {
-          console.log(user);
-          this.$router.push('/login');
-        });
+  	  	this.authenticate({
+  	  	  strategy: 'local',
+  	  	  username: this.user.username,
+  	  	  password: this.user.password
+  	  	}).then(() => {
+  	  		// logged in
+  	  	})
   	  }
   	},
   },
