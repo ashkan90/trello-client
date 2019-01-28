@@ -22,11 +22,11 @@
       	  ></v-text-field>
       	  <v-btn type="submit" :disabled="!valid">Login</v-btn>
       	</v-form>
-        <v-progress-circular 
+        <v-progress-circular
         v-else
-        :size="70" 
-        :width="7" 
-        indeterminate 
+        :size="70"
+        :width="7"
+        indeterminate
         color="primary">
         </v-progress-circular>
       </v-layout>
@@ -35,7 +35,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex';
+
 export default {
   data(vm) {
   	return {
@@ -50,18 +51,20 @@ export default {
   },
   computed: {
     ...mapState('auth', { loading: 'isAuthenticatePending' }),
-    ...mapActions('auth', ['authenticate'])
+
   },
   methods: {
+    ...mapActions('auth', ['authenticate']),
   	login() {
   	  if (this.valid) {
   	  	this.authenticate({
   	  	  strategy: 'local',
-  	  	  username: this.user.username,
-  	  	  password: this.user.password
+          ...this.user,
   	  	}).then(() => {
-  	  		// logged in
-  	  	})
+  	  		this.$router.push('/boards');
+  	  	}).catch((e) => {
+          console.error('Auth error!..', e);
+        });
   	  }
   	},
   },

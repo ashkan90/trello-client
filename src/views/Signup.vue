@@ -41,11 +41,11 @@
       	  ></v-text-field>
       	  <v-btn type="submit" :disabled="!valid">Sign Up</v-btn>
       	</v-form>
-        <v-progress-circular 
+        <v-progress-circular
         v-else
-        :size="70" 
-        :width="7" 
-        indeterminate 
+        :size="70"
+        :width="7"
+        indeterminate
         color="primary">
         </v-progress-circular>
       </v-layout>
@@ -54,7 +54,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
+
 export default {
   data(vm) {
   	return {
@@ -71,10 +72,10 @@ export default {
   	};
   },
   computed: {
-    ...mapState('users', 
-    {
-      loading: 'isCreatePending'
-    })
+    ...mapState('users',
+      {
+        loading: 'isCreatePending',
+      }),
   },
   methods: {
   	signUp() {
@@ -82,10 +83,10 @@ export default {
   	  	const { User } = this.$FeathersVuex;
   	  	const user = new User(this.user);
   	  	user.save()
-        .then(user => {
-          console.log(user);
-          this.$router.push('/login');
-        });
+          .then((user) => {
+            console.log(user);
+            this.$router.push('/login');
+          });
   	  }
   	},
   },
