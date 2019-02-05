@@ -5,7 +5,7 @@
       	<v-form
         v-if="!loading"
       	v-model="valid"
-      	@submit.prevent="signUp"
+      	@submit.prevent="login"
       	@keydown.prevent.enter="">
       	  <v-text-field
       	    v-model="user.username"
@@ -22,13 +22,6 @@
       	  ></v-text-field>
       	  <v-btn type="submit" :disabled="!valid">Login</v-btn>
       	</v-form>
-        <v-progress-circular
-        v-else
-        :size="70"
-        :width="7"
-        indeterminate
-        color="primary">
-        </v-progress-circular>
       </v-layout>
     </v-slide-y-transition>
   </v-container>
@@ -61,6 +54,7 @@ export default {
   	  	  strategy: 'local',
           ...this.user,
   	  	}).then(() => {
+          console.log('logged in');
   	  		this.$router.push('/boards');
   	  	}).catch((e) => {
           console.error('Auth error!..', e);

@@ -29,7 +29,7 @@ export default new Vuex.Store({
         name: '',
         order: '',
         archived: false,
-        boardId: ''
+        boardId: '',
       },
     }),
   	auth({ userService: 'users' }),

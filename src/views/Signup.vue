@@ -14,7 +14,7 @@
       	    label="Username"
       	  ></v-text-field>
       	  <v-text-field
-      	    v-model="user.displayName"
+      	    v-model="user.displayname"
       	    :rules="notEmptyRules"
       	    required
       	    label="Display name"
@@ -27,14 +27,14 @@
       	    required
       	  ></v-text-field>
       	  <v-text-field
-      	  	v-model="user.confirmPassword"
+      	  	v-model="user.confirmpassword"
       	  	:rules="confirmPasswordRule"
       	    label="Confirm password"
       	    type="password"
       	    required
       	  ></v-text-field>
       	  <v-text-field
-      	  	v-model="user.imageUrl"
+      	  	v-model="user.imageurl"
       	  	:rules="notEmptyRules"
       	    label="Image URL"
       	    required
@@ -62,10 +62,10 @@ export default {
   	  valid: false,
   	  user: {
   	  	username: '',
-  	  	confirmPassword: '',
+  	  	confirmpassword: '',
   	  	password: '',
-  	  	displayName: '',
-  	  	imageUrl: '',
+  	  	displayname: '',
+  	  	imageurl: '',
   	  },
   	  notEmptyRules: [val => !!val || 'Cannot be empty!'],
   	  confirmPasswordRule: [val => val === vm.user.password || 'Password doesnt match.'],

@@ -6,19 +6,20 @@ import store from './store';
 Vue.use(Router);
 
 
-isLoggedIn: (to, from, next) => {
+function isLoggedIn(to, from, next) {
   store.dispatch('auth/authenticate').then(() => {
-    next('/boards');
+    next();
   }).catch(() => {
     next('/login');
   });
-},
+}
 
-loadView: (view) => {
-  return import(
+function loadView(view) {
+  return () => import(
     /* webpackMode: "lazy-once" */
-    /*  webpackChunkName: "view-[request]" */ 
-    `./views/${view}.vue`),
+    /*  webpackChunkName: "view-[request]" */
+    `./views/${view}.vue`,
+  )
 }
 
 
@@ -35,24 +36,24 @@ export default new Router({
     {
       path: '/signup',
       name: 'signup',
-      component: loadView('Signup')
+      component: loadView('Signup'),
     },
     {
       path: '/login',
       name: 'login',
-      component: loadView('Login')
+      component: loadView('Login'),
     },
     {
       path: '/boards',
       name: 'boards',
       component: loadView('Boards'),
-      beforeEnter: isLoggedIn
+      beforeEnter: isLoggedIn,
     },
     {
       path: '/boards/:id',
       name: 'board',
       component: loadView('Board'),
-      beforeEnter: isLoggedIn
+      beforeEnter: isLoggedIn,
     },
   ],
 });

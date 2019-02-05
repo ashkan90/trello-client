@@ -1,5 +1,6 @@
 <template>
   <v-content>
+    <h1>DSFLKLDSŞF</h1>
     <v-container fluid>
       <v-slide-y-transition mode="out-in">
         <v-layout row wrap align-center>
@@ -22,7 +23,7 @@
               <v-card-title class="column">
                 <div class="headline">Create new Board</div>
                 <div>
-                  <v-form v-else v-model="valid" @submit.prevent="createBoard" @keydown.prevent.enter>
+                  <v-form v-if="!creating" v-model="valid" @submit.prevent="createBoard" @keydown.prevent.enter>
                     <v-text-field label="Name" v-model="board.name" :rules="notEmptyRules" required></v-text-field>
                     <v-text-field label="label" v-model="board.background" :rules="notEmptyRules" required></v-text-field>
                     <v-btn type="submit" :disabled="!valid">Create Board</v-btn>
@@ -39,7 +40,7 @@
 
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -50,35 +51,35 @@ export default {
         background: '',
       },
       notEmptyRules: [val => !!val || 'Cannot be empty!'],
-    }
+    };
   },
   mounted() {
     this.findBoards({ query: {} })
-      .then(res => {
-        const boards = res.data || res
-      })
+      .then((res) => {
+        const boards = res.data || res;
+      });
   },
   computed: {
     ...mapState('boards', {
       loading: 'isFindPending',
-      creating: 'isCreatePending'
-    })
+      creating: 'isCreatePending',
+    }),
     ...mapGetters('boards', { findBoardsInStore: 'find' }),
     boards() {
-      return this.findBoardsInStore({ query: {} }).data
-    }
+      return this.findBoardsInStore({ query: {} }).data;
+    },
   },
   methods: {
     ...mapActions('boards', { findBoards: 'find' }),
     createBoard() {
-      // Create new record 
+      // Create new record
       if (this.valid) {
-        const { Board } = this.$FeathersVuex
-        const board = new Board(this.board)
-        board.save()
+        const { Board } = this.$FeathersVuex;
+        const board = new Board(this.board);
+        board.save();
       }
-    }
-  }
-}
+    },
+  },
+};
 
 </script>
