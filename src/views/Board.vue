@@ -14,7 +14,7 @@
           <v-flex xs12>
             <h2>{{ board.name }}</h2>
           </v-flex>
-          <v-flex v-for="(list, i) in lists" :key="i" sm3>
+          <v-flex sm3 v-for="(list, i) in lists" :key="i">
             <v-card>
               <v-card-title primary-title>
                 <span class="headline">{{ list.name }}</span>
@@ -33,8 +33,8 @@
                     @keydown.prevent.enter
                   >
                     <v-text-field
-                      v-model="list.name"
                       label="Name"
+                      v-model="list.name"
                       :rules="notEmptyRules"
                       required
                     ></v-text-field>
@@ -61,14 +61,15 @@ export default {
       list: {
         name: "",
         order: 0,
-        archived: false
+        archived: false,
       },
       notEmptyRules: [val => !!val || "Cannot be empty!"]
     };
   },
 
   mounted() {
-    this.getBoard(this.$route.params.id).then(res => {
+    this.getBoard(this.$route.params.id)
+    .then(res => {
       this.board = res.data || res;
     });
 
@@ -76,7 +77,8 @@ export default {
       query: {
         boardId: this.$route.params.id
       }
-    }).then(res => {
+    })
+    .then(res => {
       const lists = res.data || res;
     });
   },
@@ -85,12 +87,13 @@ export default {
     ...mapActions("boards", { getBoard: "get" }),
     ...mapActions("lists", { findLists: "find" }),
     createList() {
-      if (this.validList) {
+      if(this.validList){
         const { List } = this.$FeathersVuex;
         this.list.boardId = this.$route.params.id;
         const list = new List(this.list);
-        list.save().then(() => {
-          console.log("created");
+        list.save()
+        .then(() => {
+          console.log('created');
         });
         this.list = {
           name: "",
@@ -113,8 +116,9 @@ export default {
         query: {
           boardId: this.$route.params.id
         }
-      }).data;
+      }).data
     }
   }
+
 };
 </script>

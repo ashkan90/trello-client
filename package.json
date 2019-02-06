@@ -19,6 +19,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-service": "^3.4.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
@@ -38,10 +39,11 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/recommended",
+      "plugin:vue/essential",
       "@vue/airbnb",
       "@vue/prettier"
     ],
+    "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
     }

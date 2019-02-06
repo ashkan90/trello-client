@@ -6,7 +6,7 @@
         <v-layout row wrap align-center>
           <v-progress-circular v-if="creating" :size="70" :width="7" indeterminate color="primary">
           </v-progress-circular>
-          <v-flex v-for="(board, i) in boards" :key="i" sm3>
+          <v-flex sm3 v-for="(board, i) in boards" :key="i">
             <v-card>
               <v-card-title primary-title>
                 <div class="headline">{{ board.name }}</div>
@@ -29,14 +29,14 @@
                     @keydown.prevent.enter
                   >
                     <v-text-field
-                      v-model="board.name"
                       label="Name"
+                      v-model="board.name"
                       :rules="notEmptyRules"
                       required
                     ></v-text-field>
                     <v-text-field
-                      v-model="board.background"
                       label="label"
+                      v-model="board.background"
                       :rules="notEmptyRules"
                       required
                     ></v-text-field>
@@ -79,7 +79,7 @@ export default {
     ...mapState("auth", { user: "payload" }),
     ...mapGetters("boards", { findBoardsInStore: "find" }),
     boards() {
-      return this.findBoardsInStore({
+      return this.findBoardsInStore({ 
         query: {
           ownerId: this.user.userId
         }
