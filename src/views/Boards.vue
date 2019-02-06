@@ -11,10 +11,9 @@
               <v-card-title primary-title>
                 <div class="headline">{{ board.name }}</div>
               </v-card-title>
-              <v-img :src="board.background" :lazy-src="board.background" height="300px">
-              </v-img>
+              <v-img :src="board.background" :lazy-src="board.background" height="300px"> </v-img>
               <v-card-actions>
-                <v-btn color="primary" :to="{ name: 'board', params: { id: board._id} }">Go</v-btn>
+                <v-btn color="primary" :to="{ name: 'board', params: { id: board._id } }">Go</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -23,9 +22,24 @@
               <v-card-title class="column">
                 <div class="headline">Create new Board</div>
                 <div>
-                  <v-form v-if="!creating" v-model="valid" @submit.prevent="createBoard" @keydown.prevent.enter>
-                    <v-text-field label="Name" v-model="board.name" :rules="notEmptyRules" required></v-text-field>
-                    <v-text-field label="label" v-model="board.background" :rules="notEmptyRules" required></v-text-field>
+                  <v-form
+                    v-if="!creating"
+                    v-model="valid"
+                    @submit.prevent="createBoard"
+                    @keydown.prevent.enter
+                  >
+                    <v-text-field
+                      label="Name"
+                      v-model="board.name"
+                      :rules="notEmptyRules"
+                      required
+                    ></v-text-field>
+                    <v-text-field
+                      label="label"
+                      v-model="board.background"
+                      :rules="notEmptyRules"
+                      required
+                    ></v-text-field>
                     <v-btn type="submit" :disabled="!valid">Create Board</v-btn>
                   </v-form>
                 </div>
@@ -38,39 +52,37 @@
   </v-content>
 </template>
 
-
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex';
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       valid: false,
       board: {
-        name: '',
-        background: '',
+        name: "",
+        background: ""
       },
-      notEmptyRules: [val => !!val || 'Cannot be empty!'],
+      notEmptyRules: [val => !!val || "Cannot be empty!"]
     };
   },
   mounted() {
-    this.findBoards({ query: {} })
-      .then((res) => {
-        const boards = res.data || res;
-      });
+    this.findBoards({ query: {} }).then(res => {
+      const boards = res.data || res;
+    });
   },
   computed: {
-    ...mapState('boards', {
-      loading: 'isFindPending',
-      creating: 'isCreatePending',
+    ...mapState("boards", {
+      loading: "isFindPending",
+      creating: "isCreatePending"
     }),
-    ...mapGetters('boards', { findBoardsInStore: 'find' }),
+    ...mapGetters("boards", { findBoardsInStore: "find" }),
     boards() {
       return this.findBoardsInStore({ query: {} }).data;
-    },
+    }
   },
   methods: {
-    ...mapActions('boards', { findBoards: 'find' }),
+    ...mapActions("boards", { findBoards: "find" }),
     createBoard() {
       // Create new record
       if (this.valid) {
@@ -78,8 +90,7 @@ export default {
         const board = new Board(this.board);
         board.save();
       }
-    },
-  },
+    }
+  }
 };
-
 </script>

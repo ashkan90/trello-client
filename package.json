@@ -23,6 +23,7 @@
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-service": "^3.4.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
+    "@vue/eslint-config-prettier": "^4.0.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.13.0",
     "eslint-plugin-vue": "^5.0.0",
@@ -39,7 +40,8 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "@vue/airbnb"
+      "@vue/airbnb",
+      "@vue/prettier"
     ],
     "rules": {},
     "parserOptions": {
