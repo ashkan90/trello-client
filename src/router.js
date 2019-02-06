@@ -18,10 +18,9 @@ function loadView(view) {
   return () => import(
     /* webpackMode: "lazy-once" */
     /*  webpackChunkName: "view-[request]" */
-    `./views/${view}.vue`,
-  )
+    `./views/${view}.vue`
+  );
 }
-
 
 
 export default new Router({
