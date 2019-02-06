@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -35,7 +35,8 @@ export default {
     };
   },
   computed: {
-    ...mapState("auth", { user: "payload" })
+    ...mapState("auth", { user: "payload" }),
+    ...mapGetters("users", { userObj: "current" }),
   },
   methods: {
     ...mapActions("auth", { authLogout: "logout" }),

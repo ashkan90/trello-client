@@ -49,13 +49,13 @@ export default {
           strategy: "local",
           ...this.user
         })
-          .then(() => {
-            console.log("logged in");
-            this.$router.push("/boards");
-          })
-          .catch(e => {
-            console.error("Auth error!..", e);
-          });
+        .then(() => {
+          console.log("logged in");
+          this.$router.push("/boards");
+        })
+        .catch(e => {
+          console.error("Auth error!..", e);
+        });
       }
     }
   }
