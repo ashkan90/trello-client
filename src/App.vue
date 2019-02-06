@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     ...mapState("auth", { user: "payload" }),
-    ...mapGetters("users", { userObj: "current" }),
+    ...mapGetters("users", { userObj: "current" })
   },
   methods: {
     ...mapActions("auth", { authLogout: "logout" }),
