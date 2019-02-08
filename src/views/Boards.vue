@@ -79,7 +79,7 @@ export default {
     ...mapState("auth", { user: "payload" }),
     ...mapGetters("boards", { findBoardsInStore: "find" }),
     boards() {
-      return this.findBoardsInStore({ 
+      return this.findBoardsInStore({
         query: {
           ownerId: this.user.userId
         }
