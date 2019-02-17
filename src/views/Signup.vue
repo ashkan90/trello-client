@@ -2,11 +2,7 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <v-form 
-        v-if="!loading" 
-        v-model="valid" 
-        @submit.prevent="signup" 
-        @keydown.prevent.enter>
+        <v-form v-if="!loading" v-model="valid" @submit.prevent="signup" @keydown.prevent.enter>
           <v-text-field
             v-model="user.username"
             :rules="notEmptyRules"
@@ -78,8 +74,7 @@ export default {
         const { User } = this.$FeathersVuex;
         const newUser = new User(this.user);
 
-        newUser.save()
-        .then(user => this.$router.push("/login"));
+        newUser.save().then(() => this.$router.push("/login"));
       }
     }
   }

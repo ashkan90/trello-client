@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout row >
+    <v-layout row>
       <v-flex xs9>
         <v-container fluid grid-list-lg>
           <v-slide-y-transition mode="out-in">
@@ -20,19 +20,18 @@
                   </v-flex>
                   <v-flex sm3 v-for="(list, i) in lists" :key="i">
                     <single-list
-                    :list="list"
-                    :setDroppingList="onSetDroppingList"
-                    :droppingList="droppingList"
-                    :cardsByListId="cardsByListId"
-                    :startDragingCard="startDragingCard"
-                    :dropCard="dropCard"
-                    :createActivity="createActivity"
-                    :user="user"></single-list>
+                      :list="list"
+                      :setDroppingList="onSetDroppingList"
+                      :droppingList="droppingList"
+                      :cardsByListId="cardsByListId"
+                      :startDragingCard="startDragingCard"
+                      :dropCard="dropCard"
+                      :createActivity="createActivity"
+                      :user="user"
+                    ></single-list>
                   </v-flex>
                   <v-flex sm3>
-                    <create-list
-                    :creatingList="creatingList"
-                    :createList="createList">
+                    <create-list :creatingList="creatingList" :createList="createList">
                     </create-list>
                   </v-flex>
                 </v-layout>
@@ -58,11 +57,11 @@ export default {
   components: {
     CreateList,
     SingleList,
-    Activities,
+    Activities
   },
   data() {
     return {
-      board: {},
+      board: {}
     };
   },
 
@@ -100,7 +99,9 @@ export default {
       const newList = new List(list);
 
       await newList.save();
-      await this.createActivity(`<b>${this.user.displayname}</b> created list <b>${newList.name}</b>`);
+      await this.createActivity(
+        `<b>${this.user.displayname}</b> created list <b>${newList.name}</b>`
+      );
     },
     async createActivity(text) {
       const { Activity } = this.$FeathersVuex;
@@ -151,7 +152,7 @@ export default {
     ...mapGetters("lists", { findListsInStore: "find" }),
     ...mapState("cards", { cardsError: "errorOnfind" }),
     ...mapGetters("cards", { findCardsInStore: "find" }),
-    ...mapGetters("users", { getUser: "get"}),
+    ...mapGetters("users", { getUser: "get" }),
     ...mapGetters("users", { user: "current" }),
     ...mapGetters("activities", { findActivitiesInStore: "find" }),
     activities() {

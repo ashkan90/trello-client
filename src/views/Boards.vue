@@ -8,8 +8,7 @@
           <v-flex sm3 v-for="board in boards" :key="board._id">
             <single-board :board="board"></single-board>
           </v-flex>
-          <create-board :creating="creating" :createBoard="createBoard">
-          </create-board>
+          <create-board :creating="creating" :createBoard="createBoard"> </create-board>
         </v-layout>
       </v-slide-y-transition>
     </v-container>
@@ -27,10 +26,10 @@ export default {
   },
   components: {
     CreateBoard,
-    SingleBoard,
+    SingleBoard
   },
   mounted() {
-    this.findBoards({ query: {} })
+    this.findBoards({ query: {} });
   },
   computed: {
     ...mapState("boards", {

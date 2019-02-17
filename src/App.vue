@@ -1,10 +1,6 @@
 <template>
   <v-app app>
-    <app-navbar
-      :user="user"
-      :userObj="userObj"
-      :logout="logout"
-      ></app-navbar>
+    <app-navbar :user="user" :userObj="userObj" :logout="logout"></app-navbar>
 
     <v-content class="hide-overflow">
       <router-view />

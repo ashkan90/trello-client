@@ -2,11 +2,12 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <v-form 
-        v-if="!loading" 
-        v-model="valid" 
-        @submit.prevent="login({ valid, user })" 
-        @keydown.prevent.enter="">
+        <v-form
+          v-if="!loading"
+          v-model="valid"
+          @submit.prevent="login({ valid, user })"
+          @keydown.prevent.enter=""
+        >
           <v-text-field
             v-model="user.username"
             :rules="notEmptyRules"
@@ -48,7 +49,7 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["authenticate"]),
-    ...mapActions("localAuth", ["login"]),
+    ...mapActions("localAuth", ["login"])
   }
 };
 </script>
