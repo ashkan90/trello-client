@@ -2,7 +2,11 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <v-form v-if="!loading" v-model="valid" @submit.prevent="signUp" @keydown.prevent.enter="">
+        <v-form 
+        v-if="!loading" 
+        v-model="valid" 
+        @submit.prevent="signup" 
+        @keydown.prevent.enter>
           <v-text-field
             v-model="user.username"
             :rules="notEmptyRules"
@@ -46,6 +50,7 @@
 
 <script>
 import { mapState } from "vuex";
+import { notEmptyRules } from "@/validators";
 
 export default {
   data(vm) {
@@ -58,7 +63,7 @@ export default {
         displayname: "",
         imageurl: ""
       },
-      notEmptyRules: [val => !!val || "Cannot be empty!"],
+      notEmptyRules,
       confirmPasswordRule: [val => val === vm.user.password || "Password doesnt match."]
     };
   },
@@ -68,14 +73,13 @@ export default {
     })
   },
   methods: {
-    signUp() {
+    signup() {
       if (this.valid) {
         const { User } = this.$FeathersVuex;
-        const user = new User(this.user);
-        user.save().then(user => {
-          console.log(user);
-          this.$router.push("/login");
-        });
+        const newUser = new User(this.user);
+
+        newUser.save()
+        .then(user => this.$router.push("/login"));
       }
     }
   }

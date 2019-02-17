@@ -1,21 +1,12 @@
 <template>
-  <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items v-if="!user">
-        <v-btn flat :to="{ name: 'login' }">Login</v-btn>
-        <v-btn flat :to="{ name: 'signup' }">Sign Up</v-btn>
-      </v-toolbar-items>
-      <v-toolbar-items v-else>
-        <v-btn flat @click="logout">Logout</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
+  <v-app app>
+    <app-navbar
+      :user="user"
+      :userObj="userObj"
+      :logout="logout"
+      ></app-navbar>
 
-    <v-content>
+    <v-content class="hide-overflow">
       <router-view />
     </v-content>
     <v-footer :fixed="false" app>
@@ -26,13 +17,12 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
+import AppNavbar from "@/components/AppNavbar";
 
 export default {
   name: "App",
-  data() {
-    return {
-      //
-    };
+  components: {
+    AppNavbar
   },
   computed: {
     ...mapState("auth", { user: "payload" }),

@@ -2,7 +2,11 @@
   <v-container fluid>
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
-        <v-form v-if="!loading" v-model="valid" @submit.prevent="login" @keydown.prevent.enter="">
+        <v-form 
+        v-if="!loading" 
+        v-model="valid" 
+        @submit.prevent="login({ valid, user })" 
+        @keydown.prevent.enter="">
           <v-text-field
             v-model="user.username"
             :rules="notEmptyRules"
@@ -25,6 +29,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import { notEmptyRules } from "@/validators";
 
 export default {
   data(vm) {
@@ -34,7 +39,7 @@ export default {
         username: "",
         password: ""
       },
-      notEmptyRules: [val => !!val || "Cannot be empty!"],
+      notEmptyRules,
       confirmPasswordRule: [val => val === vm.user.password || "Password doesnt match."]
     };
   },
@@ -43,21 +48,7 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["authenticate"]),
-    login() {
-      if (this.valid) {
-        this.authenticate({
-          strategy: "local",
-          ...this.user
-        })
-          .then(() => {
-            console.log("logged in");
-            this.$router.push("/boards");
-          })
-          .catch(e => {
-            console.error("Auth error!..", e);
-          });
-      }
-    }
+    ...mapActions("localAuth", ["login"]),
   }
 };
 </script>
